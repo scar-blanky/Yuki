@@ -1,3 +1,5 @@
+export type PseudoEnum<T extends Readonly<object>> = T[keyof T];
+
 export type SymbolString = Uppercase<string> & Lowercase<string>;
 // this doesn't work, thanks TypeScript
 // type NonSymbolString = Exclude<string, SymbolString>;
