@@ -1,6 +1,7 @@
 import * as http from 'node:http';
 import * as Discord from './discord/index.ts';
 import * as Line from './line/index.ts';
+import { handleFavicon } from './favicon.ts';
 
 
 type Req = Parameters<http.RequestListener>[0];
@@ -16,8 +17,11 @@ export interface HandleParameters {
     rawBody: string;
 }
 
-const routes: Readonly<Record<string, Record<string, (this: HandleUtils, obj: HandleParameters) => Promise<void>>>> = Object.freeze({
+type HandleFunction = (this: HandleUtils, obj: HandleParameters) => void | Promise<void>;
+
+const routes: Readonly<Record<string, Record<string, HandleFunction>>> = Object.freeze({
     GET: {
+        '/favicon.ico': handleFavicon,
         '/liff': Line.handleLiff,
     },
     POST: {
@@ -39,7 +43,7 @@ http.createServer(async (req, res) => {
     req.setEncoding('utf-8');
     const rawBody = await req.reduce((acc, cur) => acc + cur, '');
 
-    route.call(utils, { req, res, rawBody });
+    await route.call(utils, { req, res, rawBody });
 }).listen(8080, () => {
     console.log("Server started!");
 });

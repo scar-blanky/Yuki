@@ -38,8 +38,6 @@ export type SnakeToCamelCasing<S extends string>
   * note: doesn't check for edge cases
   * `__` won't get handled correctly
   * and will ERROR when the string ends with `_`
-  * @argument {S} s input string
-  * @returns {SnakeToCamelCasing<S>} the input string after replacing all `_c` to `C`
   * @throws {TypeError} when the string ends with `_`
   */
 export function snakeToCamelCasing<S extends string>(s: S): SnakeToCamelCasing<S> {
@@ -55,7 +53,7 @@ export function snakeToCamelCasing<S extends string>(s: S): SnakeToCamelCasing<S
 
 /**
   * Tries to "evaluate" the type.
-  * ```
+  * ```ts
   * interface A {
   *     a: string;
   * }

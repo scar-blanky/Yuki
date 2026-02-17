@@ -12,6 +12,10 @@
 # below:
 .git
 .gitignore
+!.env
+.env.example
+tsconfig.json
+.nvmrc
 
 # Node.js dependencies:
 node_modules/

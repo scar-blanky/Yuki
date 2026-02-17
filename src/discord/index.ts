@@ -4,7 +4,7 @@ import { validateSignature } from './verify.ts';
 import { InteractionResponseType, InteractionType } from './enums.ts';
 
 export async function handleWebhook(this: HandleUtils, { req: { headers }, res, rawBody }: HandleParameters): Promise<void> {
-    if (await validateSignature(headers, rawBody)) return this.error();
+    if (!await validateSignature(headers, rawBody)) return this.error();
 
     const body = JSON.parse(rawBody) as APIInteraction;
     switch (body.type) {
