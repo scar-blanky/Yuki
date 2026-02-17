@@ -4,7 +4,7 @@ import { subtle as subtleCrypto } from 'node:crypto';
 
 const CLIENT_PUBLIC_KEY = await subtleCrypto.importKey(
     'raw',
-    Buffer.from(process.env['DISCORD_CLIENT_PUBLIC_KEY']!, 'hex'),
+    Buffer.from(process.env['DISCORD_PUBLIC_KEY']!, 'hex'),
     {
         name: 'ed25519',
         namedCurve: 'ed25519',
